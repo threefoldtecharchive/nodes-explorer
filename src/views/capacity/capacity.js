@@ -3,7 +3,7 @@ import nodesTable from '../../components/nodestable'
 import gatewaysTable from '../../components/gatewaystable'
 
 import scrollablecard from '../../components/scrollablecard'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'capacity',
@@ -29,14 +29,8 @@ export default {
       'gatewaySpecs'
     ])
   },
-  mounted () {
-    this.refresh()
-  },
 
   methods: {
-    ...mapActions({
-      refresh: 'refreshData'
-    }),
     changeSelectedNode (data) {
       this.selectedNode = data
     },

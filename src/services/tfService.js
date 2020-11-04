@@ -2,8 +2,8 @@ import axios from 'axios'
 import config from '../../public/config'
 
 export default {
-  getNodes (size, page) {
-    const nodes = config.tfApiUrls.map(url => {
+  getNodes (size, page, urlIndex) {
+    const nodes = getUrl(urlIndex).map(url => {
       return axios.get(`${url}/nodes`, {
         params: {
           size,
@@ -13,26 +13,21 @@ export default {
     })
     return Promise.all(nodes)
   },
-  registeredfarms (size, page) {
-    const farms = config.tfApiUrls.map(url => {
-      return axios.get(`${url}/farms`, {
-        params: {
-          size,
-          page
-        }
-      })
+  registeredfarms (urlIndex) {
+    const farms = getUrl(urlIndex).map(url => {
+      return axios.get(`${url}/farms`)
     })
     return Promise.all(farms)
   },
-  getGateways (size, page) {
-    const gateways = config.tfApiUrls.map(url => {
-      return axios.get(`${url}/gateways`, {
-        params: {
-          size,
-          page
-        }
-      })
+  getGateways (urlIndex) {
+    const gateways = getUrl(urlIndex).map(url => {
+      return axios.get(`${url}/gateways`)
     })
     return Promise.all(gateways)
   }
+}
+function getUrl (urlIndex) {
+  if (urlIndex === undefined) return config.tfApiUrls
+
+  return [config.tfApiUrls[urlIndex]]
 }

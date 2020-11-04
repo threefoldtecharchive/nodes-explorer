@@ -49,7 +49,7 @@ export default ({
       if (!page) return
 
       const getNodes = (page) => {
-        return tfService.getNodes(params.size, page)
+        return tfService.getNodes(params.size, page, params.url)
       }
 
       getNodes(page).then(response => {
@@ -79,8 +79,8 @@ export default ({
           })
       })
     },
-    getRegisteredFarms (context) {
-      tfService.registeredfarms().then(response => {
+    getRegisteredFarms (context, params) {
+      tfService.registeredfarms(params.url).then(response => {
         const farms = flatten(response.map(res => res.data))
 
         context.commit('setRegisteredFarms', farms)
@@ -89,8 +89,8 @@ export default ({
         context.commit('setFarmsLoading', false)
       })
     },
-    getRegisteredGateways (context) {
-      tfService.getGateways().then(response => {
+    getRegisteredGateways (context, params) {
+      tfService.getGateways(params.url).then(response => {
         const gateways = flatten(response.map(res => res.data))
 
         context.commit('setRegisteredGateways', gateways)
@@ -102,13 +102,13 @@ export default ({
     resetState: context => {
       context.commit('resetState')
     },
-    refreshData: ({ dispatch }) => {
+    refreshData: ({ dispatch }, url) => {
       // reset the vuex store
       dispatch('resetState')
 
-      dispatch('getNodes', { size: 500, page: 1 })
-      dispatch('getRegisteredFarms', { size: 500, page: 1 })
-      dispatch('getRegisteredGateways', { size: 500, page: 1 })
+      dispatch('getNodes', { size: 500, page: 1, url })
+      dispatch('getRegisteredFarms', { size: 500, page: 1, url })
+      dispatch('getRegisteredGateways', { size: 500, page: 1, url })
     }
   },
   mutations: {
@@ -144,7 +144,6 @@ export default ({
       state.nodeSpecs.amountregisteredFarms += value.length
     },
     setTotalSpecs (state, nodes) {
-      console.log(nodes)
       if (nodes.length === 0) {
         return
       }

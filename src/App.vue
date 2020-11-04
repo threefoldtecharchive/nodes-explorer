@@ -57,13 +57,26 @@
             <span class="font-weight-light">explorer</span>
             <span class="title font-weight-light">- {{$route.meta.displayName}}</span>
           </h1>
+          <v-select
+            class="dropdown"
+            v-model="select"
+            :items="items"
+            item-text="text"
+            item-value="url"
+            label="Select"
+            persistent-hint
+            return-object
+            outlined
+            dense
+            @change="refreshWithNetwork"
+          ></v-select>
           <v-progress-circular
             class="refresh"
             v-if="nodesLoading || farmsLoading || gatewaysLoading"
             indeterminate
             color="primary"
           ></v-progress-circular>
-          <v-btn class="refresh" icon v-else @click="refresh">
+          <v-btn class="refresh" icon v-else @click="refreshWithNetwork">
             <v-icon
               big
               color="primary"
@@ -116,7 +129,14 @@ export default {
     showBadge: true,
     menu: false,
     start: undefined,
-    refreshInterval: undefined
+    refreshInterval: undefined,
+    select: { text: 'All', url: undefined },
+    items: [
+      { text: 'All', url: undefined },
+      { text: 'Mainnet', url: 0 },
+      { text: 'Testnet', url: 1 },
+      { text: 'Devnet', url: 2 }
+    ]
   }),
   computed: {
     routes () {
@@ -165,11 +185,16 @@ export default {
         }, 60000)
       }
     }
+
+    this.refreshWithNetwork()
   },
   methods: {
     ...mapActions({
       refresh: 'refreshData'
-    })
+    }),
+    refreshWithNetwork () {
+      this.refresh(this.select.url)
+    }
   }
 }
 </script>
@@ -193,6 +218,11 @@ export default {
 }
 .spinner {
   margin-left: 20px;
+}
+.dropdown {
+  position: absolute !important;
+  right: 100px !important;
+  width: 200px;
 }
 .refresh {
   position: absolute !important;
