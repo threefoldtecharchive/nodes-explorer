@@ -155,7 +155,7 @@ export default {
     const _this = this
     // refresh every 10 minutes
     this.refreshInterval = setInterval(function () {
-      _this.refresh()
+      _this.refreshWithNetwork()
     }, 60000)
 
     // if user loses focus, clear the refreshing interval
@@ -179,9 +179,9 @@ export default {
       // if 10 minutes are passed since last focus, refresh data.
       if (seconds >= 600) {
         this.start = new Date()
-        this.refresh()
+        this.refreshWithNetwork()
         this.refreshInterval = setInterval(function () {
-          _this.refresh()
+          _this.refreshWithNetwork()
         }, 60000)
       }
     }
@@ -220,9 +220,7 @@ export default {
   margin-left: 20px;
 }
 .dropdown {
-  position: absolute !important;
-  right: 100px !important;
-  width: 200px;
+  width: 200px !important;
 }
 .refresh {
   position: absolute !important;

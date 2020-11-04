@@ -52,6 +52,9 @@
             </v-flex>
           </v-row>
           <v-row>
+            <v-flex class="ma-2 others" d-flex md4>
+              <capacityMap @custom-event-input-changed="changeSelectedNode" class="others" style="width: 100%;" />
+            </v-flex>
             <v-flex class="ma-2" d-flex>
               <nodesTable :searchnodes="selectedNode"
                 style="height: 100%; width:100%;" />

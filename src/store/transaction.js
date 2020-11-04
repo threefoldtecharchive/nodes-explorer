@@ -8,7 +8,6 @@ const getDefaultState = () => {
     nodesLoading: true,
     nodes: [],
     gateways: [],
-    registeredFarms: [],
     farms: [],
     gatewaySpecs: {
       amountRegisteredGateways: 0,
@@ -182,7 +181,6 @@ export default ({
     nodes: state => state.nodes,
     registeredFarms: state => state.registeredFarms,
     gateways: state => state.gateways,
-    farms: state => state.farms,
     nodeSpecs: state => state.nodeSpecs,
     gatewaySpecs: state => state.gatewaySpecs,
     nodesLoading: state => state.nodesLoading,

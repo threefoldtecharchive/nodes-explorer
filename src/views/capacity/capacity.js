@@ -1,13 +1,14 @@
 import miniGraph from '../../components/minigraph'
 import nodesTable from '../../components/nodestable'
 import gatewaysTable from '../../components/gatewaystable'
+import capacityMap from '../../components/capacitymap'
 
 import scrollablecard from '../../components/scrollablecard'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'capacity',
-  components: { miniGraph, nodesTable, scrollablecard, gatewaysTable },
+  components: { miniGraph, capacityMap, nodesTable, scrollablecard, gatewaysTable },
   props: [],
   data () {
     return {
