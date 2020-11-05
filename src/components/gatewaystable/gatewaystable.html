@@ -57,7 +57,7 @@
 
                 <template v-slot:expanded-item="{ headers, item }">
                   <td :colspan="headers.length">
-                    <gatewayInfo :key="item.id" :gateway=item />
+                    <gatewayInfo :key="item.node_id" :gateway=item />
                   </td>
                 </template>
               </v-data-table>

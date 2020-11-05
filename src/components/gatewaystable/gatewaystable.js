@@ -29,6 +29,7 @@ export default {
 
       headers: [
         { text: 'ID', value: 'node_id' },
+        { text: 'Network', value: 'networkType' },
         { text: 'Uptime', value: 'uptime' },
         { text: 'Version', value: 'version' },
         { text: 'Status', value: 'status', align: 'center' }
@@ -40,6 +41,20 @@ export default {
     // Parse gatewayList to table format here
     parsedGateways: function () {
       const gateways = this.gateways.filter(gateway => this.showGateway(gateway)).map(gateway => {
+        let networkType = ''
+        switch (gateway.url) {
+          case 'https://explorer.grid.tf/explorer/gateways':
+            networkType = 'Mainnet'
+            break
+          case 'https://explorer.testnet.grid.tf/explorer/gateways':
+            networkType = 'Testnet'
+            break
+          case 'https://explorer.devnet.grid.tf/explorer/gateways':
+            networkType = 'Devnet'
+            break
+          default: networkType = 'Mainnet'
+        }
+
         return {
           uptime: moment.duration(gateway.uptime, 'seconds').format(),
           version: gateway.os_version,
@@ -54,7 +69,8 @@ export default {
           managedDomains: gateway.managed_domains,
           tcpRouterPort: gateway.tcp_router_port,
           dnsNameServer: gateway.dns_nameserver,
-          publicKeyHex: gateway.public_key_hex
+          publicKeyHex: gateway.public_key_hex,
+          networkType
         }
       })
       return gateways

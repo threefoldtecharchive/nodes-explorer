@@ -29,6 +29,7 @@ export default {
 
       headers: [
         { text: 'ID', value: 'id' },
+        { text: 'Network', value: 'networkType' },
         { text: 'Uptime', value: 'uptime' },
         { text: 'Version', value: 'version' },
         { text: 'Farmer', value: 'farm_name' },
@@ -45,6 +46,20 @@ export default {
           return farmer.id === node.farm_id
         })
 
+        let networkType = ''
+        switch (node.url) {
+          case 'https://explorer.grid.tf/explorer/nodes':
+            networkType = 'Mainnet'
+            break
+          case 'https://explorer.testnet.grid.tf/explorer/nodes':
+            networkType = 'Testnet'
+            break
+          case 'https://explorer.devnet.grid.tf/explorer/nodes':
+            networkType = 'Devnet'
+            break
+          default: networkType = 'Mainnet'
+        }
+
         return {
           uptime: moment.duration(node.uptime, 'seconds').format(),
           version: node.os_version,
@@ -59,7 +74,8 @@ export default {
           updated: new Date(node.updated * 1000),
           status: this.getStatus(node),
           location: node.location,
-          freeToUse: node.free_to_use
+          freeToUse: node.free_to_use,
+          networkType
         }
       })
       return parsedNodes

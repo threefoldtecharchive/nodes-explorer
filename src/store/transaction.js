@@ -8,7 +8,7 @@ const getDefaultState = () => {
     nodesLoading: true,
     nodes: [],
     gateways: [],
-    farms: [],
+    registeredFarms: [],
     gatewaySpecs: {
       amountRegisteredGateways: 0,
       onlineGateways: 0
@@ -55,7 +55,14 @@ export default ({
         const pages = response.map(res => {
           return parseInt(res.headers.pages, 10)
         })
-        const nodes = flatten(response.map(res => res.data))
+        const nodes = flatten(response.map(res => {
+          return res.data.map(node => {
+            return {
+              ...node,
+              url: res.config.url
+            }
+          })
+        }))
         context.commit('setNodes', nodes)
 
         const promises = []
@@ -68,7 +75,14 @@ export default ({
         Promise.all(promises)
           .then(res => {
             res.map(response => {
-              const nodes = flatten(response.map(res => res.data))
+              const nodes = flatten(response.map(res => {
+                return res.data.map(node => {
+                  return {
+                    ...node,
+                    url: res.config.url
+                  }
+                })
+              }))
               context.commit('setNodes', nodes)
             })
           })
@@ -90,7 +104,14 @@ export default ({
     },
     getRegisteredGateways (context, params) {
       tfService.getGateways(params.url).then(response => {
-        const gateways = flatten(response.map(res => res.data))
+        const gateways = flatten(response.map(res => {
+          return res.data.map(gateway => {
+            return {
+              ...gateway,
+              url: res.config.url
+            }
+          })
+        }))
 
         context.commit('setRegisteredGateways', gateways)
 
@@ -125,7 +146,7 @@ export default ({
       state.farmsLoading = loading
     },
     setRegisteredGateways (state, gateways) {
-      state.gateways = state.gateways.concat(uniqBy(gateways, 'node_id'))
+      state.gateways = state.gateways.concat(gateways)
     },
     setGatewaysLoading (state, loading) {
       state.gatewaysLoading = loading

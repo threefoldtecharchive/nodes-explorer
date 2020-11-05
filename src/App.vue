@@ -57,19 +57,21 @@
             <span class="font-weight-light">explorer</span>
             <span class="title font-weight-light">- {{$route.meta.displayName}}</span>
           </h1>
-          <v-select
-            class="dropdown"
-            v-model="select"
-            :items="items"
-            item-text="text"
-            item-value="url"
-            label="Select"
-            persistent-hint
-            return-object
-            outlined
-            dense
-            @change="refreshWithNetwork"
-          ></v-select>
+          <div class="dropdown">
+            <v-select
+              v-model="select"
+              :items="items"
+              item-text="text"
+              item-value="url"
+              label="Select"
+              persistent-hint
+              return-object
+              outlined
+              dense
+              @change="refreshWithNetwork"
+            ></v-select>
+          </div>
+          <v-spacer/>
           <v-progress-circular
             class="refresh"
             v-if="nodesLoading || farmsLoading || gatewaysLoading"
@@ -220,7 +222,13 @@ export default {
   margin-left: 20px;
 }
 .dropdown {
-  width: 200px !important;
+  margin-left: 20px !important;
+  width: 300px !important;
+}
+@media only screen and (max-width: 600px) {
+  .dropdown {
+    margin-left: 0px !important;
+  }
 }
 .refresh {
   position: absolute !important;
