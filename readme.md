@@ -4,22 +4,42 @@ A web page that unifies all the nodes and gateways from all the TF Grid networks
 
 Owner: @dylanverstraete
 
-## Frontend getting started
+## Prerequisites
 
-### Project setup
+- Redis running localhost on port `6379`.
+
+## Running in production
 
 ```
+cd server
+yarn
+yarn start
+```
+
+This will run the application on http://locahost:5000
+
+## Rebuilding for production
+
+```
+cd frontend
+yarn
+yarn run build
+```
+
+## Running in development
+
+### Backend
+
+```
+cd server
+yarn
+yarn start
+```
+
+### Frontend 
+
+```
+cd frontend
 yarn install
-```
-
-#### Compiles and hot-reloads for development
-
-```
 yarn run serve
-```
-
-### Compiles and minifies for production
-
-```
-yarn build
 ```
