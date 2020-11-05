@@ -43,3 +43,27 @@ cd frontend
 yarn install
 yarn run serve
 ```
+
+## API docs
+
+Available endpoints:
+
+Query params allowed for all requests `['network=mainnet', 'network=testnet', 'network=devnet', 'network=all']`
+
+#### Nodes:
+`/api/nodes`
+
+Example:
+`localhost:5000/api/nodes?network=mainnet`
+
+#### Farms:
+`/api/farms`
+
+#### Gateways
+`/api/gateways`
+
+#### Stats
+`/api/stats`
+
+Example:
+`localhost:5000/api/stats?network=all`
