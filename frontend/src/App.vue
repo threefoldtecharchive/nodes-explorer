@@ -4,18 +4,18 @@
       <v-app-bar-nav-icon>
         <v-img class="logo" src="./assets/3fold_icon.png" />
       </v-app-bar-nav-icon>
-      <v-toolbar-title>ThreeFold capacity explorer</v-toolbar-title>
+      <v-toolbar-title>ThreeFold Capacity Explorer</v-toolbar-title>
     </v-toolbar>
 
     <v-content class="content">
       <v-col>
-        <v-row class="pa-4">
+        <v-row class="actions pa-4">
           <div class="dropdown">
             <v-select
               v-model="select"
               :items="items"
               item-text="text"
-              label="Select"
+              label="Network"
               persistent-hint
               return-object
               outlined
@@ -93,10 +93,14 @@ export default {
 </script>
 
 <style lang="scss">
+.actions {
+  height: 60px;
+}
 .logo {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin-left: 10px;
+  margin-bottom: 3px;
 }
 .toolbar {
   background-color: #2d4052 !important;
