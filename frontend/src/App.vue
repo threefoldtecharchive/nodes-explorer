@@ -1,62 +1,15 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer mini-variant app class="primary rounded" dark>
-      <v-layout column fill-height justify-end>
-        <div>
-          <v-toolbar color="secondary darken-2 " class="py-3">
-            <v-badge bottom right overlap color="primary">
-              <template v-slot:badge>
-                <v-icon size="12" dark>{{$route.meta.icon}}</v-icon>
-              </template>
-              <!--slot can be any component-->
-              <v-avatar>
-                <v-img src="./assets/logo.jpg" />
-              </v-avatar>
-            </v-badge>
-          </v-toolbar>
-        </div>
-        <div>
-          <v-list-item
-            v-for="(route, i) in routes.filter(r => r.meta.position == 'top')"
-            :key="i"
-            :to="route"
-            active-class="secondary--text"
-          >
-            <v-list-item-icon>
-              <v-icon>{{ route.meta.icon }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="title text-capitalize">{{route.meta.displayName}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </div>
-        <v-spacer></v-spacer>
-        <div>
-          <v-list-item
-            v-for="(route, i) in routes.filter(r => r.meta.position == 'bottom')"
-            :key="i"
-            :to="route"
-            active-class="secondary--text"
-          >
-            <v-list-item-icon>
-              <v-icon>{{ route.meta.icon }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title class="title text-capitalize">{{route.meta.displayName}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </div>
-      </v-layout>
-    </v-navigation-drawer>
+    <v-toolbar class="toolbar" dark>
+      <v-app-bar-nav-icon>
+        <v-img class="logo" src="./assets/3fold_icon.png" />
+      </v-app-bar-nav-icon>
+      <v-toolbar-title>ThreeFold capacity explorer</v-toolbar-title>
+    </v-toolbar>
 
     <v-content class="content">
       <v-col>
-        <v-row class="pa-4 mx-1">
-          <h1 class="headline pt-0 pb-1 text-uppercase">
-            <span>TF</span>
-            <span class="font-weight-light">explorer</span>
-            <span class="title font-weight-light">- {{$route.meta.displayName}}</span>
-          </h1>
+        <v-row class="pa-4">
           <div class="dropdown">
             <v-select
               v-model="select"
@@ -90,27 +43,6 @@
         <router-view></router-view>
       </v-col>
     </v-content>
-    <v-bottom-navigation
-      v-if="$vuetify.breakpoint.mdAndDown"
-      grow
-      dark
-      class="primary topround"
-      app
-      fixed
-      shift
-      :value="$route.name"
-    >
-      <v-btn
-        :value="route.name"
-        icon
-        v-for="(route, i) in routes"
-        :key="i"
-        @click="$router.push(route)"
-      >
-        <span>{{route.meta.displayName}}</span>
-        <v-icon>{{route.meta.icon}}</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
   </v-app>
 </template>
 
@@ -149,44 +81,6 @@ export default {
       'gatewaysLoading'
     ])
   },
-  mounted () {
-    // keep track when the user opened this app
-    this.start = new Date()
-
-    const _this = this
-    // refresh every 10 minutes
-    this.refreshInterval = setInterval(function () {
-      _this.refreshWithNetwork()
-    }, 60000)
-
-    // if user loses focus, clear the refreshing interval
-    // we don't refresh data if the page is not focused.
-    window.onblur = () => {
-      clearInterval(this.refreshInterval)
-    }
-
-    // instead of refreshing every 10 minutes in the background
-    // we do following:
-    // when the user enters the page again and 10 minutes have passed since the first visit
-    // refresh all data. Start the refresh interval again (since we assume the user is going to stay on this page)
-    // if the user decides to leave this page again this interval will be cleared again
-    window.onfocus = () => {
-      const now = new Date()
-      let elapsedTime = now - this.start
-      // strip the ms
-      elapsedTime /= 1000
-      const seconds = Math.round(elapsedTime)
-
-      // if 10 minutes are passed since last focus, refresh data.
-      if (seconds >= 600) {
-        this.start = new Date()
-        this.refreshWithNetwork()
-        this.refreshInterval = setInterval(function () {
-          _this.refreshWithNetwork()
-        }, 60000)
-      }
-    }
-  },
   methods: {
     ...mapActions({
       refresh: 'refreshData'
@@ -199,33 +93,17 @@ export default {
 </script>
 
 <style lang="scss">
-.content {
-  background: #fafafa !important;
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
 }
-.topround {
-  border-radius: 10px 10px 0 0 !important;
-}
-.rounded {
-  border-radius: 0 10px 10px 0 !important;
-}
-.v-menu__content,
-.v-card {
-  border-radius: 10px !important;
-}
-.v-card__title {
-  font-size: 18px !important;
-}
-.spinner {
-  margin-left: 20px;
+.toolbar {
+  background-color: #2d4052 !important;
+  max-height: 60px;
 }
 .dropdown {
-  margin-left: 20px !important;
   width: 300px !important;
-}
-@media only screen and (max-width: 600px) {
-  .dropdown {
-    margin-left: 0px !important;
-  }
 }
 .refresh {
   position: absolute !important;

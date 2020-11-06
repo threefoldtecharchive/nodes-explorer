@@ -11,8 +11,6 @@ router.get('/health', (req, res, next) => {
 })
 
 router.get('/*', validateURL, validateNetwork, (req, res, next) => {
-  console.log(req.type)
-
   client.get(req.url, (err, result) => {
     if (err) {
       console.log(err)

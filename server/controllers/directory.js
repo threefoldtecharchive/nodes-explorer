@@ -29,8 +29,6 @@ async function getItems (network, type) {
     }
   })
 
-  console.log(promises)
-
   const items = await Promise.all(flatten(promises))
   const mappedItems = flatten(items.map(res => {
     return res.data.map(item => {

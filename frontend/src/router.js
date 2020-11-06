@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import { publicPath } from '../vue.config'
+import Capacity from './views/capacity'
 
 Vue.use(Router)
 
@@ -11,12 +12,7 @@ export default new Router({
     {
       path: '/',
       name: 'Capacity directory',
-      component: () => import(/* webpackChunkName: "capacity-page" */ './views/capacity'),
-      meta: {
-        icon: 'fas fa-server',
-        position: 'top',
-        displayName: 'Capacity'
-      }
+      component: Capacity
     }
   ]
 })

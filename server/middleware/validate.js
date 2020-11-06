@@ -4,7 +4,8 @@ function validateNetwork (req, res, next) {
   const { query } = req
   const allowedNetworks = ['mainnet', 'testnet', 'devnet', 'all']
 
-  const network = query.network.toLowerCase()
+  let network = query.network || 'all'
+  network = network.toLowerCase()
 
   if (!allowedNetworks.includes(network)) {
     next(httpError(400, `query ${network} not allowed, only ${allowedNetworks} are valid.`))
