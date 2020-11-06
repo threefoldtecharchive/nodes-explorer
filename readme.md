@@ -10,10 +10,12 @@ Owner: @dylanverstraete
 
 ## Running in production
 
+The frontend is pre-built, no need to build it again. Only start server in production.
+
 ```
 cd server
 yarn
-yarn start
+node bin/www
 ```
 
 This will run the application on http://locahost:5000
@@ -48,13 +50,20 @@ yarn run serve
 
 Available endpoints:
 
+Network query paremeter: ThreeFold grid network type.
+
 Query params allowed for all requests `['network=mainnet', 'network=testnet', 'network=devnet', 'network=all']`
+
+If you don't provide the network query parameter the default `all` is chosen and will return items from all the networks combined.
 
 #### Nodes:
 `/api/nodes`
 
-Example:
+Local example:
 `localhost:5000/api/nodes?network=mainnet`
+
+Explorer example:
+`https://explorer.threefold.io/api/nodes?network=all`
 
 #### Farms:
 `/api/farms`
@@ -67,3 +76,6 @@ Example:
 
 Example:
 `localhost:5000/api/stats?network=all`
+
+Explorer example:
+`https://explorer.threefold.io/api/stats?network=all`
