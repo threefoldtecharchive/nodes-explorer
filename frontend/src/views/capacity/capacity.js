@@ -32,7 +32,8 @@ export default {
     ])
   },
   mounted () {
-    this.refresh('All')
+    const network = this.$router.history.current.path.substring(1) || 'All'
+    this.refresh(network)
   },
   methods: {
     ...mapActions({

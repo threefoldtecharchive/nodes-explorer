@@ -63,12 +63,12 @@ export default {
     menu: false,
     start: undefined,
     refreshInterval: undefined,
-    select: { text: 'All' },
+    select: { text: 'all' },
     items: [
-      { text: 'All' },
-      { text: 'Mainnet' },
-      { text: 'Testnet' },
-      { text: 'Devnet' }
+      { text: 'all' },
+      { text: 'mainnet' },
+      { text: 'testnet' },
+      { text: 'devnet' }
     ]
   }),
   computed: {
@@ -81,11 +81,15 @@ export default {
       'gatewaysLoading'
     ])
   },
+  mounted () {
+    this.select = this.$router.history.current.path.substring(1) || 'All'
+  },
   methods: {
     ...mapActions({
       refresh: 'refreshData'
     }),
     refreshWithNetwork () {
+      this.$router.history.push(this.select.text)
       this.refresh(this.select.text)
     }
   }
