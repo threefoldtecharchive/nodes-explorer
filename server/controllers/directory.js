@@ -45,7 +45,7 @@ async function getItems (network, type) {
 // Type can be nodes / farms / gateways
 function getItemFromExplorer (type, network, size, page) {
   return getUrls(network).map(url => {
-    return axios.get(`${url}/${type}`, {
+    return axios.get(`${url}/explorer/${type}`, {
       params: {
         size,
         page
@@ -69,5 +69,6 @@ function getUrls (network) {
 }
 
 module.exports = {
-  getItems
+  getItems,
+  getUrls
 }

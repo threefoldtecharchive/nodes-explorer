@@ -1,10 +1,11 @@
 const express = require('express')
 const httpError = require('http-errors')
 const router = express.Router()
-const { getItems } = require('../controllers/directory')
 const { client } = require('../service/database-connection')
 const { validateURL, validateNetwork } = require('../middleware/validate')
+const { getItems } = require('../controllers/directory')
 const { computeNodeStats } = require('../controllers/stats')
+const { getPrices } = require('../controllers/prices')
 
 router.get('/health', (req, res, next) => {
   res.status(200).send('up')
@@ -19,6 +20,13 @@ router.get('/*', validateURL, validateNetwork, (req, res, next) => {
     if (result) {
       return res.status(200).json(JSON.parse(result))
     } else {
+      if (req.type === 'prices') {
+        return getPrices(req.type, req.network)
+          .then(response => {
+            client.setex(req.url, 600, JSON.stringify(response.data))
+            res.send(response.data)
+          })
+      }
       getItems(req.network, req.type)
         .then(data => {
           if (req.type === 'stats') {
