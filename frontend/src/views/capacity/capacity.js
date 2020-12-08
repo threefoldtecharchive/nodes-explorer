@@ -30,16 +30,7 @@ export default {
       'gatewaySpecs',
       'farmSpecs',
       'prices'
-    ]),
-    SuPrice: function () {
-      return `$ ${this.prices.SuPriceDollarMonth}`
-    },
-    CuPrice: function () {
-      return `$ ${this.prices.CuPriceDollarMonth}`
-    },
-    TftPrice: function () {
-      return `$ ${this.prices.TftPriceMill / 1000}`
-    }
+    ])
   },
   mounted () {
     const network = this.$router.history.current.path.substring(1) || 'All'

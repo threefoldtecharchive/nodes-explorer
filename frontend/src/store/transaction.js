@@ -111,7 +111,9 @@ export default ({
       state.user = user
     },
     setPrices: (state, prices) => {
-      state.prices = prices
+      state.prices.CuPriceDollarMonth = `$ ${prices.CuPriceDollarMonth}`
+      state.prices.SuPriceDollarMonth = `$ ${prices.SuPriceDollarMonth}`
+      state.prices.TftPrice = `$ ${prices.TftPriceMill / 1000}`
     },
     setAmountOfFarms (state, value) {
       state.farmSpecs.amountregisteredFarms = value
