@@ -17,7 +17,7 @@ function validateNetwork (req, res, next) {
 
 function validateURL (req, res, next) {
   const { path } = req
-  const allowedPaths = ['nodes', 'gateways', 'farms', 'stats']
+  const allowedPaths = ['nodes', 'gateways', 'farms', 'stats', 'prices']
   const splittedPath = path.split('/')
 
   if (splittedPath.length < 2) {

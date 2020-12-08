@@ -14,5 +14,8 @@ export default {
   },
   getStats (network) {
     return axios.get(`${config.apiURL}/stats?network=${network}`)
+  },
+  getPrices () {
+    return axios.get(`${config.apiURL}/prices`)
   }
 }

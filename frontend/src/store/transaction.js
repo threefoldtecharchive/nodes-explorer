@@ -15,7 +15,13 @@ const getDefaultState = () => {
     farmSpecs: {
       amountregisteredFarms: 0
     },
-    nodeSpecs: {}
+    nodeSpecs: {},
+    // Some sane defaults
+    prices: {
+      CuPriceDollarMonth: 10,
+      SuPriceDollarMonth: 8,
+      TftPriceMill: 5000
+    }
   }
 }
 
@@ -60,6 +66,11 @@ export default ({
           context.commit('setNodeSpecs', res.data)
         })
     },
+    getPrices: context => {
+      tfService.getPrices().then(response => {
+        context.commit('setPrices', response.data)
+      })
+    },
     resetState: context => {
       context.commit('resetState')
     },
@@ -71,6 +82,7 @@ export default ({
       dispatch('getNodes', network)
       dispatch('getFarms', network)
       dispatch('getGateways', network)
+      dispatch('getPrices')
     }
   },
   mutations: {
@@ -97,6 +109,9 @@ export default ({
     },
     setUser: (state, user) => {
       state.user = user
+    },
+    setPrices: (state, prices) => {
+      state.prices = prices
     },
     setAmountOfFarms (state, value) {
       state.farmSpecs.amountregisteredFarms = value
@@ -128,7 +143,8 @@ export default ({
     farmSpecs: state => state.farmSpecs,
     nodesLoading: state => state.nodesLoading,
     farmsLoading: state => state.farmsLoading,
-    gatewaysLoading: state => state.gatewaysLoading
+    gatewaysLoading: state => state.gatewaysLoading,
+    prices: state => state.prices
   }
 })
 
