@@ -47,17 +47,13 @@ export default {
         })
 
         let networkType = ''
-        switch (node.url) {
-          case 'https://explorer.grid.tf/explorer/nodes':
-            networkType = 'Mainnet'
-            break
-          case 'https://explorer.testnet.grid.tf/explorer/nodes':
-            networkType = 'Testnet'
-            break
-          case 'https://explorer.devnet.grid.tf/explorer/nodes':
-            networkType = 'Devnet'
-            break
-          default: networkType = 'Mainnet'
+        console.log(node.url)
+        if (node.url.includes('testnet')) {
+          networkType = 'Testnet'
+        } else if (node.url.includes('devnet')) {
+          networkType = 'Devnet'
+        } else {
+          networkType = 'Mainnet'
         }
 
         return {
