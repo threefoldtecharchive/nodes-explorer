@@ -34,13 +34,11 @@ export default {
   },
   mounted () {
     const network = this.$router.history.current.path.substring(1) || 'All'
-    this.getPrices()
     this.refresh(network)
   },
   methods: {
     ...mapActions({
-      refresh: 'refreshData',
-      getPrices: 'getPrices'
+      refresh: 'refreshData'
     }),
     changeSelectedNode (data) {
       this.selectedNode = data

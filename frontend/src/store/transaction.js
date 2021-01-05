@@ -20,7 +20,8 @@ const getDefaultState = () => {
     prices: {
       CuPriceDollarMonth: 10,
       SuPriceDollarMonth: 8,
-      TftPriceMill: 5000
+      TftPriceMill: 5000,
+      IP4uPriceDollarMonth: 6
     }
   }
 }
@@ -66,8 +67,8 @@ export default ({
           context.commit('setNodeSpecs', res.data)
         })
     },
-    getPrices: context => {
-      tfService.getPrices().then(response => {
+    getPrices: (context, network) => {
+      tfService.getPrices(network).then(response => {
         context.commit('setPrices', response.data)
       })
     },
@@ -82,7 +83,7 @@ export default ({
       dispatch('getNodes', network)
       dispatch('getFarms', network)
       dispatch('getGateways', network)
-      dispatch('getPrices')
+      dispatch('getPrices', network)
     }
   },
   mutations: {
@@ -114,6 +115,7 @@ export default ({
       state.prices.CuPriceDollarMonth = `$ ${prices.CuPriceDollarMonth}`
       state.prices.SuPriceDollarMonth = `$ ${prices.SuPriceDollarMonth}`
       state.prices.TftPrice = `$ ${prices.TftPriceMill / 1000}`
+      state.prices.IP4uPriceDollarMonth = `$ ${prices.IP4uPriceDollarMonth}`
     },
     setAmountOfFarms (state, value) {
       state.farmSpecs.amountregisteredFarms = value
