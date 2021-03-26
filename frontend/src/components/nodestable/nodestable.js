@@ -79,7 +79,9 @@ export default {
   },
   methods: {
     getStatus (node) {
-      const { updated } = node
+      const { updated, reserved } = node
+      if (reserved) return { color: 'green', status: 'up' }
+
       const startTime = moment()
       const end = moment.unix(updated)
       const minutes = startTime.diff(end, 'minutes')
