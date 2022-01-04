@@ -1,0 +1,135 @@
+[{
+    "id": 1,
+    "node_id": "26ZATmd3K1fjeQKQsi8Dr7bm9iSRa3ePsV8ubMcbZEuY",
+    "hostname": "zosv2tst-6",
+    "node_id_v1": "0cc47a51e8ba",
+    "farm_id": 1,
+    "os_version": "0.6.0-rc5",
+    "created": 1610473716,
+    "updated": 1640871001,
+    "uptime": 29513773,
+    "address": "",
+    "location": {
+        "city": "Unknown",
+        "country": "Belgium",
+        "continent": "Europe",
+        "latitude": 50.8509,
+        "longitude": 4.3447
+    },
+    "total_resources": {
+        "cru": 8,
+        "mru": 15,
+        "hru": 1863,
+        "sru": 476
+    },
+    "used_resources": {
+        "cru": 0,
+        "mru": 0,
+        "hru": 0,
+        "sru": 0
+    },
+    "reserved_resources": {
+        "cru": 3,
+        "mru": 12.399999999441206,
+        "hru": 300,
+        "sru": 310
+    },
+    "workloads": {
+        "network": 35,
+        "network_resource": 0,
+        "volume": 0,
+        "zdb_namespace": 30,
+        "container": 1,
+        "k8s_vm": 1,
+        "generic_vm": 0,
+        "proxy": 0,
+        "reverse_proxy": 0,
+        "subdomain": 0,
+        "delegate_domain": 0
+    },
+    "proofs": null,
+    "ifaces": [{
+            "name": "lo",
+            "addrs": ["127.0.0.1/8", "::1/128"],
+            "gateway": null,
+            "macaddress": ""
+        },
+        {
+            "name": "enp1s0f0",
+            "addrs": ["fe80::ec4:7aff:fe51:e8ba/64"],
+            "gateway": null,
+            "macaddress": ""
+        },
+        {
+            "name": "enp1s0f1",
+            "addrs": null,
+            "gateway": null,
+            "macaddress": ""
+        },
+        {
+            "name": "zos",
+            "addrs": [
+                "10.5.0.16/24",
+                "2a02:1802:5e:15:ec4:7aff:fe51:e8ba/64",
+                "fe80::c4f0:7dff:fed2:dff8/64"
+            ],
+            "gateway": ["10.5.0.1"],
+            "macaddress": ""
+        },
+        {
+            "name": "br-pub",
+            "addrs": null,
+            "gateway": null,
+            "macaddress": ""
+        },
+        {
+            "name": "br-ndmz",
+            "addrs": null,
+            "gateway": null,
+            "macaddress": ""
+        },
+        {
+            "name": "lo",
+            "addrs": ["127.0.0.1/8", "::1/128"],
+            "gateway": null,
+            "macaddress": ""
+        },
+        {
+            "name": "npub6",
+            "addrs": [
+                "303:fb80:ac48:674e::1/64",
+                "300:3fa2:e770:faa8::1/64",
+                "2a02:1802:5e:0:431:54ff:fe5d:62a3/64",
+                "fe80::431:54ff:fe5d:62a3/64"
+            ],
+            "gateway": null,
+            "macaddress": ""
+        },
+        {
+            "name": "npub4",
+            "addrs": ["10.5.0.226/24"],
+            "gateway": null,
+            "macaddress": ""
+        },
+        {
+            "name": "ygg0",
+            "addrs": [
+                "203:fb80:ac48:674e:94cc:a40:a7f5:d3bc/7",
+                "fe80::f61:94da:ceef:3763/64"
+            ],
+            "gateway": null,
+            "macaddress": ""
+        }
+    ],
+    "public_config": null,
+    "free_to_use": false,
+    "approved": false,
+    "public_key_hex": "1047f53b798b16b33f5bf580a2c4350ad15050f4a3249a0ab8c39c68b2b938bb",
+    "wg_ports": [
+        4938, 1454, 1344, 6524, 2584, 6044, 5194, 9943, 2645, 4799, 1859, 5514,
+        8256, 7637, 9944, 9100, 1324, 4116, 8226, 8759, 4822, 6853, 3247, 9945,
+        5193, 8284, 1034, 6861, 1657, 5460, 3501, 7155, 1750, 8881
+    ],
+    "deleted": false,
+    "reserved": false
+}]

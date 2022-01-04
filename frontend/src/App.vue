@@ -10,10 +10,24 @@
     <v-content class="content">
       <v-col>
         <v-row class="actions pa-4">
+            <div class="dropdown">
+            <v-select
+              v-model="grid"
+              :items="gridVersions"
+              item-text="text"
+              label="Grid Version"
+              persistent-hint
+              return-object
+              outlined
+              dense
+              @change="refreshWithNetwork"
+            ></v-select>
+          </div>
           <div class="dropdown">
             <v-select
               v-model="select"
               :items="items"
+              class="ml-4"
               item-text="text"
               label="Network"
               persistent-hint
@@ -23,15 +37,7 @@
               @change="refreshWithNetwork"
             ></v-select>
           </div>
-          <v-spacer/>
-          <div class="grid3label">
-            <p class="font-weight-light others">
-              <v-icon>mdi-information-outline</v-icon>
-              <span>
-                These statistics contains the Grid3 network capacity.
-              </span>
-            </p>
-          </div>
+          <v-spacer />
           <v-progress-circular
             class="refresh"
             v-if="nodesLoading || farmsLoading || gatewaysLoading"
@@ -39,13 +45,7 @@
             color="primary"
           ></v-progress-circular>
           <v-btn class="refresh" icon v-else @click="refreshWithNetwork">
-            <v-icon
-              big
-              color="primary"
-              left
-            >
-              fas fa-sync-alt
-            </v-icon>
+            <v-icon big color="primary" left> fas fa-sync-alt </v-icon>
           </v-btn>
         </v-row>
         <router-view></router-view>
@@ -71,7 +71,13 @@ export default {
     menu: false,
     start: undefined,
     refreshInterval: undefined,
-    select: { text: 'all' },
+    select: { text: 'testnet' }, // fixme: remove
+    grid: { text: 'grid3' },
+    gridVersions: [
+      { text: 'all' },
+      { text: 'grid3' },
+      { text: 'grid2' }
+    ],
     items: [
       { text: 'all' },
       { text: 'mainnet' },
@@ -82,14 +88,11 @@ export default {
     routes () {
       return this.$router.options.routes
     },
-    ...mapGetters([
-      'nodesLoading',
-      'farmsLoading',
-      'gatewaysLoading'
-    ])
+    ...mapGetters(['nodesLoading', 'farmsLoading', 'gatewaysLoading'])
   },
   mounted () {
-    this.select = this.$router.history.current.path.substring(1) || 'All'
+    // this.select = this.$router.history.current.path.substring(1) || 'All'
+    this.refreshWithNetwork()
   },
   methods: {
     ...mapActions({
@@ -97,7 +100,7 @@ export default {
     }),
     refreshWithNetwork () {
       this.$router.history.push(this.select.text)
-      this.refresh(this.select.text)
+      this.refresh({ grid: this.grid.text, network: this.select.text })
     }
   }
 }

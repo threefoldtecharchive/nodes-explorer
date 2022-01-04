@@ -16,6 +16,16 @@ export default new Router({
       component: Capacity
     },
     {
+      path: '/grid2',
+      name: 'Capacity directory',
+      component: Capacity
+    },
+    {
+      path: '/grid3',
+      name: 'Capacity directory',
+      component: Capacity
+    },
+    {
       path: '/all',
       name: 'Capacity directory',
       component: Capacity
