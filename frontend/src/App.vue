@@ -28,7 +28,7 @@
             <p class="font-weight-light others">
               <v-icon>mdi-information-outline</v-icon>
               <span>
-                This statistics contains the Grid3 network capacity.
+                These statistics contains the Grid3 network capacity.
               </span>
             </p>
           </div>
