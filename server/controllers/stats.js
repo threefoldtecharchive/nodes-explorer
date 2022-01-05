@@ -1,6 +1,10 @@
 const { sumBy, uniqBy } = require('lodash')
+const axios = require('axios')
+const config = require('../config')
 
-function computeNodeStats (nodes) {
+const log = require('pino')()
+
+function computeNodeStats(nodes) {
   const onlineNodes = nodes.filter(online)
 
   const nodeSpecs = {}
@@ -20,7 +24,27 @@ function computeNodeStats (nodes) {
   return nodeSpecs
 }
 
-function online (node) {
+async function appendV3NodeStats(nodeSpecs, network) {
+  // get the grid3 nodes
+  try {
+    const nodes = (await axios.get(`${config[`grid3${network}`]}/nodes`)).data
+
+    const onlineNodes = nodes.filter(v3Online)
+  
+    nodeSpecs.amountregisteredNodes += nodes.length
+    nodeSpecs.onlinenodes += onlineNodes.length
+    nodeSpecs.cru += sumBy(onlineNodes, node => +node.cru)
+    nodeSpecs.mru += sumBy(onlineNodes, node => Math.ceil(+node.mru/(1024*1024*1024)))
+    nodeSpecs.sru += sumBy(onlineNodes, node => Math.ceil(+node.sru/(1024*1024*1024)))
+    nodeSpecs.hru += sumBy(onlineNodes, node => Math.ceil(+node.hru/(1024*1024*1024)))
+    
+    return nodeSpecs
+  } catch (error) {
+    log.warn(error)
+  }  
+}
+
+function online(node) {
   const { reserved } = node
   if (reserved) return true
 
@@ -29,6 +53,12 @@ function online (node) {
   return minutes < 20
 }
 
+function v3Online(node) {
+  const { status } = node
+  return status.toLowerCase() === 'up'
+}
+
 module.exports = {
-  computeNodeStats
+  computeNodeStats,
+  appendV3NodeStats
 }

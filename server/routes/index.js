@@ -4,7 +4,7 @@ const router = express.Router()
 const { client } = require('../service/database-connection')
 const { validateURL, validateNetwork } = require('../middleware/validate')
 const { getItems } = require('../controllers/directory')
-const { computeNodeStats } = require('../controllers/stats')
+const { computeNodeStats, appendV3NodeStats } = require('../controllers/stats')
 const { getPrices } = require('../controllers/prices')
 
 router.get('/health', (req, res, next) => {
@@ -28,9 +28,11 @@ router.get('/*', validateURL, validateNetwork, (req, res, next) => {
           })
       }
       getItems(req.network, req.type)
-        .then(data => {
+        .then(async data => {
           if (req.type === 'stats') {
-            const stats = computeNodeStats(data)
+            // Here we compute the stats and adding the grid3 stats also.
+            let stats = computeNodeStats(data)
+            await appendV3NodeStats(stats, req.network)
             client.setex(req.url, 600, JSON.stringify(stats))
             res.send(stats)
           } else {

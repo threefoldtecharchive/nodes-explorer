@@ -24,6 +24,14 @@
             ></v-select>
           </div>
           <v-spacer/>
+          <div class="grid3labal">
+            <p class="font-weight-light others">
+              <v-icon>mdi-information-outline</v-icon>
+              <span>
+                This statistics contains the Grid3 network capacity.
+              </span>
+            </p>
+          </div>
           <v-progress-circular
             class="refresh"
             v-if="nodesLoading || farmsLoading || gatewaysLoading"
@@ -118,5 +126,11 @@ export default {
   right: 25px !important;
   top: 30px !important;
   font-size: 30px !important;
+}
+.grid3labal {
+  align-self: center;
+  padding-left: 10px;
+  margin-top:-10px;
+  margin-right: 60px;
 }
 </style>
