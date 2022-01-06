@@ -75,8 +75,7 @@ export default {
     items: [
       { text: 'all' },
       { text: 'mainnet' },
-      { text: 'testnet' },
-      { text: 'devnet' }
+      { text: 'testnet' }
     ]
   }),
   computed: {

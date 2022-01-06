@@ -30,11 +30,11 @@ export default new Router({
       name: 'Capacity directory',
       component: Capacity
     },
-    {
-      path: '/devnet',
-      name: 'Capacity directory',
-      component: Capacity
-    },
+    // {
+    //   path: '/devnet',
+    //   name: 'Capacity directory',
+    //   component: Capacity
+    // },
     {
       path: '*',
       name: 'Not found',

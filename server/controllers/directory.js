@@ -60,11 +60,11 @@ function getUrls (network) {
       return [config.mainnet]
     case 'testnet':
       return [config.testnet]
-    case 'devnet':
-      return [config.devnet]
+    // case 'devnet':
+    //   return [config.devnet]
     case 'all':
-      return [config.mainnet, config.testnet, config.devnet]
-    default: return [config.mainnet, config.testnet, config.devnet]
+      return [config.mainnet, config.testnet]
+    default: return [config.mainnet, config.testnet]
   }
 }
 
