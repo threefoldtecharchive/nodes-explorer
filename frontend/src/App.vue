@@ -24,7 +24,7 @@
             ></v-select>
           </div>
           <v-spacer/>
-          <div class="grid3labal">
+          <div class="grid3label">
             <p class="font-weight-light others">
               <v-icon>mdi-information-outline</v-icon>
               <span>
@@ -127,7 +127,7 @@ export default {
   top: 30px !important;
   font-size: 30px !important;
 }
-.grid3labal {
+.grid3label {
   align-self: center;
   padding-left: 10px;
   margin-top:-10px;
