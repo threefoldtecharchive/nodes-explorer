@@ -24,8 +24,7 @@ function getNodes(network) {
       for (let i = 0; i < results.length; i++) {
         results[i] = results[i].data;
       }
-      const c = [].concat(...results);
-      return c;
+      return [].concat(...results)
     })
     .catch((err) => {
       log.warn(err);
