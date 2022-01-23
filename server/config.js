@@ -1,10 +1,10 @@
-GRID2_DEVNET_EXPLORER_URL = "https://explorer.devnet.grid.tf";
-GRID2_TESTNET_EXPLORER_URL = "https://explorer.testnet.grid.tf";
-GRID2_MAINNET_EXPLORER_URL = "https://explorer.grid.tf";
+GRID2_DEVNET_EXPLORER_URL = "https://explorer.devnet.grid.tf/explorer";
+GRID2_TESTNET_EXPLORER_URL = "https://explorer.testnet.grid.tf/explorer";
+GRID2_MAINNET_EXPLORER_URL = "https://explorer.grid.tf/explorer";
 
-GRID3_DEVNET_EXPLORER_URL = "https://gridproxy.dev.grid.tf";
-GRID3_TESTNET_EXPLORER_URL = "https://gridproxy.test.grid.tf";
-GRID3_MAINNET_EXPLORER_URL = "https://gridproxy.grid.tf";
+GRID3_DEVNET_EXPLORER_URL = "https://gridproxy.ayoub.gridtesting.xyz";
+GRID3_TESTNET_EXPLORER_URL = "https://gridproxy.ayoub.gridtesting.xyz";
+GRID3_MAINNET_EXPLORER_URL = "https://gridproxy.ayoub.gridtesting.xyz";
 
 // Update with your config settings.
 module.exports = {

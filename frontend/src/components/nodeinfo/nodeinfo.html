@@ -56,10 +56,10 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <v-row>
+          <v-row v-if="node.workloads.network">
             <v-col>Network:</v-col> <v-col><span class="font-weight-bold text-right">{{node.workloads.network}}</span></v-col>
           </v-row>
-          <v-row>
+          <v-row v-if="node.workloads.zdb_namespace">
             <v-col>0-DB namespace:</v-col> <v-col><span class="font-weight-bold text-right">{{node.workloads.zdb_namespace}}</span></v-col>
           </v-row>
         </v-col>

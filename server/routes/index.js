@@ -11,8 +11,6 @@ const { getItems } = require("../controllers/directory");
 const { computeNodeStats } = require("../controllers/stats");
 const { getPrices } = require("../controllers/prices");
 
-const log = require("pino")();
-
 router.get("/health", (req, res, next) => {
   res.status(200).send("up");
 });
@@ -23,11 +21,8 @@ router.get(
   validateGridVersion,
   validateNetwork,
   (req, res, next) => {
-    log.warn(`gridVersion: ${req.url}`);
     client.get(req.url, (err, result) => {
-      log.warn(`result: ${result}`);
       if (err) {
-        // log.warn(err);
         throw httpError(500, err);
       }
       if (result) {
@@ -39,17 +34,19 @@ router.get(
             res.send(response.data);
           });
         }
-        log.warn(`req.grid: ${req.gridVersion}`);
         getItems(req.gridVersion, req.network, req.type)
           .then((data) => {
+            let returnData = data;
             if (req.type === "stats") {
               const stats = computeNodeStats(data);
-              client.setex(req.url, 600, JSON.stringify(stats));
-              res.send(stats);
-            } else {
-              client.setex(req.url, 600, JSON.stringify(data));
-              res.send(data);
+              returnData = stats;
             }
+            // mapping V3 object to V2 object
+            if (req.type === "nodes") {
+
+            }
+            client.setex(req.url, 600, JSON.stringify(returnData));
+            res.send(returnData);
           })
           .catch(next);
       }

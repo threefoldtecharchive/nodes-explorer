@@ -86,6 +86,24 @@ function getUrls(gridVeriosn, network) {
   return config[gridVeriosn][network];
 }
 
+function mappingV3Object(nodes) {
+  return nodes.map((node) => {
+    return {
+      id: node.nodeId,
+      version: node.version,
+      farm_id: node.farmId,
+      farm_name: "node.farm_name",
+      location: node.location,
+      status: { status: node.status },
+      updated: node.updatedAt,
+      total_resources: node.total_resources,
+      used_resources: node.used_resources,
+      uptime: node.uptime,
+      certificationType: node.certificationType,
+    };
+  });
+}
+
 module.exports = {
   getItems,
   getUrls,
