@@ -7,7 +7,7 @@ const {
   validateGridVersion,
   validateNetwork,
 } = require("../middleware/validate");
-const { getItems } = require("../controllers/directory");
+const { getItems, mappingV3Object } = require("../controllers/directory");
 const { computeNodeStats } = require("../controllers/stats");
 const { getPrices } = require("../controllers/prices");
 
@@ -25,7 +25,7 @@ router.get(
       if (err) {
         throw httpError(500, err);
       }
-      if (result) {
+      if (false) { // TODO remove <<<<
         return res.status(200).json(JSON.parse(result));
       } else {
         if (req.type === "prices") {
@@ -42,8 +42,8 @@ router.get(
               returnData = stats;
             }
             // mapping V3 object to V2 object
-            if (req.type === "nodes") {
-
+            if (["nodes", "gateways"].includes(req.type)) {
+              returnData = mappingV3Object(req.gridVersion, data);
             }
             client.setex(req.url, 600, JSON.stringify(returnData));
             res.send(returnData);

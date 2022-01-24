@@ -61,9 +61,7 @@ function validateURL(req, res, next) {
     );
   }
 
-  log.warn(`path: ${splittedPath[1]}`);
   req.type = splittedPath[1];
-  log.warn(`req.type: ${req.type}`);
   next();
 }
 

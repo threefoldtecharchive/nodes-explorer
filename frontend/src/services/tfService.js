@@ -2,20 +2,20 @@ import axios from 'axios'
 import config from '../../public/config'
 
 export default {
-  getNodes (gridVeriosn, network) {
+  getNodes (gridVersion, network) {
     console.log(process.env)
-    return axios.get(`${config.apiURL}/nodes?grid=${gridVeriosn}&network=${network}`)
+    return axios.get(`${config.apiURL}/nodes?grid=${gridVersion}&network=${network}`)
   },
-  getFarms (gridVeriosn, network) {
-    return axios.get(`${config.apiURL}/farms?grid=${gridVeriosn}&network=${network}`)
+  getFarms (gridVersion, network) {
+    return axios.get(`${config.apiURL}/farms?grid=${gridVersion}&network=${network}`)
   },
-  getGateways (gridVeriosn, network) {
-    return axios.get(`${config.apiURL}/gateways?grid=${gridVeriosn}&network=${network}`)
+  getGateways (gridVersion, network) {
+    return axios.get(`${config.apiURL}/gateways?grid=${gridVersion}&network=${network}`)
   },
-  getStats (gridVeriosn, network) {
-    return axios.get(`${config.apiURL}/stats?grid=${gridVeriosn}&network=${network}`)
+  getStats (gridVersion, network) {
+    return axios.get(`${config.apiURL}/stats?grid=${gridVersion}&network=${network}`)
   },
-  getPrices (gridVeriosn, network) {
-    return axios.get(`${config.apiURL}/prices?grid=${gridVeriosn}&network=${network}`)
+  getPrices (gridVersion, network) {
+    return axios.get(`${config.apiURL}/prices?grid=${gridVersion}&network=${network}`)
   }
 }

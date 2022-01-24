@@ -41,6 +41,8 @@ export default ({
     getNodes (context, { grid, network }) {
       tfService.getNodes(grid, network)
         .then(res => {
+          console.log('>>>>>>>>>>>>>>>>>>>')
+          console.log(res.data)
           context.commit('setNodes', res.data)
           context.commit('setNodesLoading', false)
         })
@@ -77,6 +79,7 @@ export default ({
     },
     refreshData: ({ dispatch }, args) => {
       console.log('refreshData')
+      if (!args.grid || !args.network) return
       // reset the vuex store
       dispatch('resetState')
       console.log(args)
