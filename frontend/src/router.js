@@ -13,38 +13,45 @@ export default new Router({
     {
       path: '/',
       name: 'Capacity directory',
-      component: Capacity
+      component: Capacity,
+      props: true
     },
     {
       path: '/grid2',
       name: 'Capacity directory',
+      props: true,
       component: Capacity
     },
     {
       path: '/grid3',
       name: 'Capacity directory',
+      props: true,
       component: Capacity
     },
     {
       path: '/all',
       name: 'Capacity directory',
+      props: true,
       component: Capacity
     },
     {
       path: '/mainnet',
       name: 'Capacity directory',
+      props: true,
       component: Capacity
     },
     {
       path: '/testnet',
       name: 'Capacity directory',
+      props: true,
       component: Capacity
     },
-    // {
-    //   path: '/devnet',
-    //   name: 'Capacity directory',
-    //   component: Capacity
-    // },
+    {
+      path: '/devnet',
+      name: 'Capacity directory',
+      props: true,
+      component: Capacity
+    },
     {
       path: '*',
       name: 'Not found',

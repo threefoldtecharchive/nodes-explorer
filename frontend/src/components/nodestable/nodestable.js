@@ -47,7 +47,6 @@ export default {
         })
 
         let networkType = ''
-        console.log(node.url)
         if (node.url.includes('test')) {
           networkType = 'Testnet'
         } else if (node.url.includes('dev')) {
@@ -55,8 +54,7 @@ export default {
         } else {
           networkType = 'Mainnet'
         }
-
-        const gridVersion = Object.keys(node.workloads).length > 0 ? 'grid2' : 'grid3'
+        const gridVersion = Object.keys(node.workloads).length > 0 ? 'Grid2' : 'Grid3'
 
         return {
           uptime: moment.duration(node.uptime, 'seconds').format(),
@@ -77,8 +75,6 @@ export default {
           gridVersion
         }
       })
-      console.log('naodetable')
-      console.log(parsedNodes)
       return parsedNodes
     }
   },

@@ -25,7 +25,7 @@ router.get(
       if (err) {
         throw httpError(500, err);
       }
-      if (false) { // TODO remove <<<<
+      if (result) {
         return res.status(200).json(JSON.parse(result));
       } else {
         if (req.type === "prices") {

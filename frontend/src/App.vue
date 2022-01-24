@@ -48,7 +48,7 @@
             <v-icon big color='primary' left> fas fa-sync-alt </v-icon>
           </v-btn>
         </v-row>
-        <router-view></router-view>
+        <router-view :grid="grid.text"></router-view>
       </v-col>
     </v-content>
   </v-app>
@@ -71,10 +71,10 @@ export default {
     menu: false,
     start: undefined,
     refreshInterval: undefined,
-    select: { text: 'all' },
-    grid: { text: 'all' },
-    gridVersions: [{ text: 'all' }, { text: 'grid3' }, { text: 'grid2' }],
-    items: [{ text: 'all' }, { text: 'mainnet' }, { text: 'testnet' }, { text: 'devnet' }]
+    select: { text: 'testnet' },
+    grid: { text: 'grid3' },
+    gridVersions: [{ text: 'grid3' }, { text: 'grid2' }],
+    items: [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }]
   }),
   computed: {
     routes () {
@@ -112,7 +112,7 @@ export default {
       this.refreshWithNetwork()
     },
     refreshWithNetwork () {
-      this.$router.history.push(this.select.text)
+      this.$router.history.push({ path: this.select.text, params: { network: this.select.text } })
       this.refresh({ grid: this.grid.text, network: this.select.text })
     }
   }
