@@ -83,7 +83,6 @@ export default {
     ...mapGetters(['nodesLoading', 'farmsLoading', 'gatewaysLoading'])
   },
   mounted () {
-    // this.select = this.$router.history.current.path.substring(1) || 'All'
     this.refreshWithNetwork()
   },
   methods: {
@@ -112,7 +111,7 @@ export default {
       this.refreshWithNetwork()
     },
     refreshWithNetwork () {
-      this.$router.history.push({ path: this.select.text, params: { network: this.select.text } })
+      this.$router.history.push(this.select.text)
       this.refresh({ grid: this.grid.text, network: this.select.text })
     }
   }
