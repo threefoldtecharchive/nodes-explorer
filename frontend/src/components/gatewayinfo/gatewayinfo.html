@@ -12,6 +12,12 @@
         </v-flex>
       </v-row>
       <v-row>
+        <v-flex xs3 class="text-left pr-2">Grid version</v-flex>
+        <v-flex class="text-truncate font-weight-bold">
+          <span>{{gateway.gridVersion}}</span>
+        </v-flex>
+      </v-row>
+      <v-row>
         <v-flex xs3 class="text-left pr-2">gateway version</v-flex>
         <v-flex class="text-truncate font-weight-bold">
           <span>{{gateway.version}}</span>
@@ -75,7 +81,7 @@
       </v-row>
     </v-container>
   </v-col>
-  <v-col>
+  <v-col v-if="Object.keys(gateway.workloads).length">
     <div class="title">
       <v-icon small left>fa-chart-bar</v-icon>Provisioned workloads
     </div>

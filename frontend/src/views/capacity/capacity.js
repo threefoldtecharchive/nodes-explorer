@@ -9,7 +9,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'capacity',
   components: { miniGraph, capacityMap, nodesTable, scrollablecard, gatewaysTable },
-  props: [],
+  props: ['grid'],
   data () {
     return {
       showDialog: false,

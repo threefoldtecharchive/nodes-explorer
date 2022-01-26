@@ -42,18 +42,14 @@ export default {
     parsedGateways: function () {
       const gateways = this.gateways.filter(gateway => this.showGateway(gateway)).map(gateway => {
         let networkType = ''
-        switch (gateway.url) {
-          case 'https://explorer.grid.tf/explorer/gateways':
-            networkType = 'Mainnet'
-            break
-          case 'https://explorer.testnet.grid.tf/explorer/gateways':
-            networkType = 'Testnet'
-            break
-          case 'https://explorer.devnet.grid.tf/explorer/gateways':
-            networkType = 'Devnet'
-            break
-          default: networkType = 'Mainnet'
+        if (gateway.url.includes('test')) {
+          networkType = 'Testnet'
+        } else if (gateway.url.includes('dev')) {
+          networkType = 'Devnet'
+        } else {
+          networkType = 'Mainnet'
         }
+        const gridVersion = Object.keys(gateway.workloads).length > 0 ? 'Grid2' : 'Grid3'
 
         return {
           uptime: moment.duration(gateway.uptime, 'seconds').format(),
@@ -70,7 +66,8 @@ export default {
           tcpRouterPort: gateway.tcp_router_port,
           dnsNameServer: gateway.dns_nameserver,
           publicKeyHex: gateway.public_key_hex,
-          networkType
+          networkType,
+          gridVersion
         }
       })
       return gateways
@@ -78,7 +75,8 @@ export default {
   },
   methods: {
     getStatus (gateway) {
-      const { updated } = gateway
+      const { updated, reserved } = gateway
+      if (reserved) return { color: 'green', status: 'up' }
       const startTime = moment()
       const end = moment.unix(updated)
       const minutes = startTime.diff(end, 'minutes')

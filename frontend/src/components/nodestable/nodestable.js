@@ -47,14 +47,14 @@ export default {
         })
 
         let networkType = ''
-        console.log(node.url)
-        if (node.url.includes('testnet')) {
+        if (node.url.includes('test')) {
           networkType = 'Testnet'
-        } else if (node.url.includes('devnet')) {
+        } else if (node.url.includes('dev')) {
           networkType = 'Devnet'
         } else {
           networkType = 'Mainnet'
         }
+        const gridVersion = Object.keys(node.workloads).length > 0 ? 'Grid2' : 'Grid3'
 
         return {
           uptime: moment.duration(node.uptime, 'seconds').format(),
@@ -71,7 +71,8 @@ export default {
           status: this.getStatus(node),
           location: node.location,
           freeToUse: node.free_to_use,
-          networkType
+          networkType,
+          gridVersion
         }
       })
       return parsedNodes

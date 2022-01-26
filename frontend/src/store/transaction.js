@@ -38,52 +38,53 @@ export default ({
       var response = await tfService.getUser(name)
       context.commit('setUser', response.data)
     },
-    getNodes (context, network) {
-      tfService.getNodes(network)
+    getNodes (context, { grid, network }) {
+      tfService.getNodes(grid, network)
         .then(res => {
           context.commit('setNodes', res.data)
           context.commit('setNodesLoading', false)
         })
     },
-    getFarms (context, network) {
-      tfService.getFarms(network)
+    getFarms (context, { grid, network }) {
+      tfService.getFarms(grid, network)
         .then(res => {
           context.commit('setRegisteredFarms', res.data)
           context.commit('setFarmsLoading', false)
           context.commit('setAmountOfFarms', res.data.length)
         })
     },
-    getGateways (context, network) {
-      tfService.getGateways(network)
+    getGateways (context, { grid, network }) {
+      tfService.getGateways(grid, network)
         .then(res => {
           context.commit('setRegisteredGateways', res.data)
           context.commit('setGatewaysLoading', false)
           context.commit('setGatewaySpecs', res.data)
         })
     },
-    getStats (context, network) {
-      tfService.getStats(network)
+    getStats (context, { grid, network }) {
+      tfService.getStats(grid, network)
         .then(res => {
           context.commit('setNodeSpecs', res.data)
         })
     },
-    getPrices: (context, network) => {
-      tfService.getPrices(network).then(response => {
+    getPrices: (context, { grid, network }) => {
+      tfService.getPrices(grid, network).then(response => {
         context.commit('setPrices', response.data)
       })
     },
     resetState: context => {
       context.commit('resetState')
     },
-    refreshData: ({ dispatch }, network) => {
+    refreshData: ({ dispatch }, args) => {
+      if (!args.grid || !args.network) return
       // reset the vuex store
       dispatch('resetState')
 
-      dispatch('getStats', network)
-      dispatch('getNodes', network)
-      dispatch('getFarms', network)
-      dispatch('getGateways', network)
-      dispatch('getPrices', network)
+      dispatch('getStats', args)
+      dispatch('getNodes', args)
+      dispatch('getFarms', args)
+      dispatch('getGateways', args)
+      dispatch('getPrices', args)
     }
   },
   mutations: {
@@ -155,6 +156,9 @@ export default ({
 function online (node) {
   const { reserved } = node
   if (reserved) return true
+
+  const { status } = node
+  if (status === 'up') return true
 
   const timestamp = new Date().getTime() / 1000
   const minutes = (timestamp - node.updated) / 60

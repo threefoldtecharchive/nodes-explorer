@@ -2,20 +2,20 @@ import axios from 'axios'
 import config from '../../public/config'
 
 export default {
-  getNodes (network) {
+  getNodes (gridVersion, network) {
     console.log(process.env)
-    return axios.get(`${config.apiURL}/nodes?network=${network}`)
+    return axios.get(`${config.apiURL}/nodes?grid=${gridVersion}&network=${network}`)
   },
-  getFarms (network) {
-    return axios.get(`${config.apiURL}/farms?network=${network}`)
+  getFarms (gridVersion, network) {
+    return axios.get(`${config.apiURL}/farms?grid=${gridVersion}&network=${network}`)
   },
-  getGateways (network) {
-    return axios.get(`${config.apiURL}/gateways?network=${network}`)
+  getGateways (gridVersion, network) {
+    return axios.get(`${config.apiURL}/gateways?grid=${gridVersion}&network=${network}`)
   },
-  getStats (network) {
-    return axios.get(`${config.apiURL}/stats?network=${network}`)
+  getStats (gridVersion, network) {
+    return axios.get(`${config.apiURL}/stats?grid=${gridVersion}&network=${network}`)
   },
-  getPrices (network) {
-    return axios.get(`${config.apiURL}/prices?network=${network}`)
+  getPrices (gridVersion, network) {
+    return axios.get(`${config.apiURL}/prices?grid=${gridVersion}&network=${network}`)
   }
 }
