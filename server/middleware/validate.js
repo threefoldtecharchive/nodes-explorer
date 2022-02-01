@@ -7,7 +7,6 @@ function validateGridVersion(req, res, next) {
   const allowedGridVersions = ["all", "grid2", "grid3"];
 
   let gridVersion = query.grid === undefined ? "all" : query.grid;
-  log.warn(`gridVersion: ${gridVersion}`);
   gridVersion = gridVersion.toLowerCase();
 
   if (!allowedGridVersions.includes(gridVersion)) {
