@@ -38,7 +38,7 @@
               <miniGraph class="others" :value="nodeSpecs.mru" append="GB" title="Memory online" />
             </v-flex>
             <v-flex md3 xs6 d-flex class="pa-2 others">
-              <miniGraph class="others" :value="nodeSpecs.sru" append="GB" title="SSD Storage capacity" />
+              <miniGraph class="others" :value="Math.ceil(nodeSpecs.sru) || 0" append="GB" title="SSD Storage capacity" />
             </v-flex>
             <v-flex md3 xs6 d-flex class="pa-2 others">
               <miniGraph class="others" :value="nodeSpecs.hru" append="GB" title="HDD Storage capacity" />

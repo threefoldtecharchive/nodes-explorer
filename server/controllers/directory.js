@@ -38,18 +38,26 @@ async function getItems(gridVersion, network, type) {
   });
 
   const items = await Promise.all(flatten(promises));
+  if (items) {
   const mappedItems = flatten(
     items.map((res) => {
-      return res.data.map((item) => {
-        return {
-          ...item,
-          url: res.config.url,
-        };
-      });
+      if (res.data) {
+        return res.data.map((item) => {
+          return {
+            ...item,
+            url: res.config.url,
+          };
+        });
+      } else {
+        log.warn("No response from explorer");
+        return [];
+      }
     })
   );
-
-  return [...mappedItems, ...itemsPageOne];
+  return [...itemsPageOne, ...mappedItems];
+  } else {
+    return itemsPageOne;
+  }
 }
 
 // Type can be nodes / farms / gateways
