@@ -71,10 +71,10 @@ export default {
     menu: false,
     start: undefined,
     refreshInterval: undefined,
-    select: { text: 'testnet' },
-    grid: { text: 'grid3' },
-    gridVersions: [{ text: 'all' }, { text: 'grid3' }, { text: 'grid2' }],
-    items: [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }]
+    select: { key: 'all', text: 'all' },
+    grid: { key: 'all', text: 'grid2 & grid3' },
+    gridVersions: [{ key: 'all', text: 'Grid V2 & Grid V3' }, { key: 'grid3', text: 'Grid V3' }, { key: 'grid2', text: 'Grid V2' }],
+    items: [{ key: 'all', text: 'All' }, { key: 'testnet', text: 'Testnet' }, { key: 'devnet', text: 'Devnet' }]
   }),
   computed: {
     routes () {
@@ -90,29 +90,29 @@ export default {
       refresh: 'refreshData'
     }),
     onUpdateGrid () {
-      const gridType = this.grid.text
+      const gridType = this.grid.key
       if (gridType === 'grid3') {
-        this.items = [{ text: 'all' }, { text: 'testnet' }, { text: 'devnet' }]
+        this.items = [{ key: 'all', text: 'All' }, { key: 'testnet', text: 'Testnet' }, { key: 'devnet', text: 'Devnet' }]
       } else if (gridType === 'grid2') {
         this.items = [
-          { text: 'all' },
-          { text: 'mainnet' },
-          { text: 'testnet' }
+          { key: 'all', text: 'All' },
+          { key: 'mainnet', text: 'Mainnet' },
+          { key: 'testnet', text: 'Testnet' }
         ]
       } else {
         this.items = [
-          { text: 'all' },
-          { text: 'mainnet' },
-          { text: 'testnet' },
-          { text: 'devnet' }
+          { key: 'all', text: 'All' },
+          { key: 'mainnet', text: 'Mainnet' },
+          { key: 'testnet', text: 'Testnet' },
+          { key: 'devnet', text: 'Devnet' }
         ]
       }
       this.select = this.items[0]
       this.refreshWithNetwork()
     },
     refreshWithNetwork () {
-      this.$router.history.push(this.select.text)
-      this.refresh({ grid: this.grid.text, network: this.select.text })
+      this.$router.history.push(this.select.key)
+      this.refresh({ grid: this.grid.key, network: this.select.key })
     }
   }
 }
