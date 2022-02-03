@@ -74,7 +74,7 @@ export default {
     select: { key: 'all', text: 'all' },
     grid: { key: 'all', text: 'grid2 & grid3' },
     gridVersions: [{ key: 'all', text: 'Grid V2 & Grid V3' }, { key: 'grid3', text: 'Grid V3' }, { key: 'grid2', text: 'Grid V2' }],
-    items: [{ key: 'all', text: 'All' }, { key: 'testnet', text: 'Testnet' }, { key: 'devnet', text: 'Devnet' }]
+    items: [{ key: 'all', text: 'All' }, { key: 'mainnet', text: 'Mainnet' }, { key: 'testnet', text: 'Testnet' }, { key: 'devnet', text: 'Devnet' }]
   }),
   computed: {
     routes () {
@@ -92,7 +92,7 @@ export default {
     onUpdateGrid () {
       const gridType = this.grid.key
       if (gridType === 'grid3') {
-        this.items = [{ key: 'all', text: 'All' }, { key: 'testnet', text: 'Testnet' }, { key: 'devnet', text: 'Devnet' }]
+        this.items = [{ key: 'all', text: 'All' }, { key: 'mainnet', text: 'Mainnet' }, { key: 'testnet', text: 'Testnet' }, { key: 'devnet', text: 'Devnet' }]
       } else if (gridType === 'grid2') {
         this.items = [
           { key: 'all', text: 'All' },

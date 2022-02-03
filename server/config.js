@@ -8,13 +8,13 @@ GRID3_MAINNET_EXPLORER_URL = "https://gridproxy.grid.tf";
 // Update with your config settings.
 module.exports = {
     all: {
-        mainnet: [GRID2_MAINNET_EXPLORER_URL], // TODO: add grid3 link
+        mainnet: [GRID2_MAINNET_EXPLORER_URL, GRID3_MAINNET_EXPLORER_URL],
         testnet: [GRID2_TESTNET_EXPLORER_URL, GRID3_TESTNET_EXPLORER_URL],
         devnet: [GRID3_DEVNET_EXPLORER_URL],
         all: [
             GRID2_MAINNET_EXPLORER_URL,
             GRID2_TESTNET_EXPLORER_URL,
-            // GRID3_MAINNET_EXPLORER_URL,
+            GRID3_MAINNET_EXPLORER_URL,
             GRID3_TESTNET_EXPLORER_URL,
             GRID3_DEVNET_EXPLORER_URL,
         ],
@@ -31,7 +31,7 @@ module.exports = {
         testnet: [GRID3_TESTNET_EXPLORER_URL],
         devnet: [GRID3_DEVNET_EXPLORER_URL],
         all: [
-            // GRID3_MAINNET_EXPLORER_URL,
+            GRID3_MAINNET_EXPLORER_URL,
             GRID3_TESTNET_EXPLORER_URL,
             GRID3_DEVNET_EXPLORER_URL,
         ],
