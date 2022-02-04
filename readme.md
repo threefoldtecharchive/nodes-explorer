@@ -2,6 +2,8 @@
 
 A web page that unifies all the nodes and gateways from all the TF Grid networks.
 
+https://explorer.threefold.io
+
 Owner: @dylanverstraete
 
 ## Prerequisites
