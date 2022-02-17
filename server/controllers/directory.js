@@ -91,7 +91,7 @@ function mappingV3Object(gridVersion, nodes) {
     return {
       id: node.id,
       node_id: node.nodeId,
-      os_version: node.version ? node.version : "None",
+      os_version: node.zosVersion ? node.zosVersion : node.version ? node.version : "None",
       farm_id: node.farmId,
       farm_name: "node.farm_name",
       location: node.location,
