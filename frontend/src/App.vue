@@ -38,6 +38,36 @@
             ></v-select>
           </div>
           <v-spacer />
+          <div class="grid3label">
+            <v-btn-toggle
+              rounded
+            >
+              <v-btn
+              class='grid3'
+              color='primary'
+              dark
+              small
+              outlined
+              href="https://portal.grid.tf"
+              target="_blank"
+            >
+              <v-icon>mdi-link</v-icon>
+              <span class='ml-2'>Mainnet Portal</span>
+            </v-btn>
+            <v-btn
+              class='grid3'
+              color='primary'
+              dark
+              small
+              outlined
+              href="https://portal.test.grid.tf"
+              target="_blank"
+            >
+              <v-icon>mdi-link</v-icon>
+              <span class='ml-2'>Testnet Portal</span>
+            </v-btn>
+            </v-btn-toggle>
+          </div>
           <v-progress-circular
             class='refresh'
             v-if='nodesLoading || farmsLoading || gatewaysLoading'
@@ -71,6 +101,7 @@ export default {
     menu: false,
     start: undefined,
     refreshInterval: undefined,
+    toggle_exclusive: undefined,
     select: { key: 'all', text: 'all' },
     grid: { key: 'all', text: 'grid2 & grid3' },
     gridVersions: [{ key: 'all', text: 'Grid V2 & Grid V3' }, { key: 'grid3', text: 'Grid V3' }, { key: 'grid2', text: 'Grid V2' }],
@@ -142,9 +173,7 @@ export default {
   font-size: 30px !important;
 }
 .grid3label {
-  align-self: center;
-  padding-left: 10px;
-  margin-top: -10px;
+  margin-top: 5px;
   margin-right: 60px;
 }
 </style>
