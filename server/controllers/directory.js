@@ -2,62 +2,30 @@ const axios = require("axios");
 const config = require("../config");
 const { flatten } = require("lodash");
 
-const log = require("pino")();
-
 async function getItems(gridVersion, network, type) {
   if (type === "stats") {
     type = "nodes";
   }
 
-  const startPage = 1;
+  const firstPage = await Promise.all(getItemFromExplorer(type, gridVersion, network, 500, 1));
+  const pageSize = Math.max(...firstPage.map(({ headers }) => +headers.pages));
+  const pages = Array.from({ length: pageSize }, (_, i) => i + 2);
 
-  const response = await Promise.all(
-    getItemFromExplorer(type, gridVersion, network, 500, startPage)
-  );
-  const pages = response.map((res) => {
-    return parseInt(res.headers.pages, 10);
-  });
-  const itemsPageOne = flatten(
-    response.map((res) => {
-      return res.data.map((item) => {
-        return {
-          ...item,
-          url: res.config.url,
-        };
+  const items = await Promise.all([
+    Promise.resolve(firstPage),
+    ...pages.map(page => {
+      return Promise.all(getItemFromExplorer(type, gridVersion, network, 500, page));
+    }),
+  ])
+
+  return flatten(
+    flatten(items).map(({ data, config }) => {
+      return data.map((item) => {
+        item.url = config.url;
+        return item;
       });
     })
   );
-
-  const promises = [];
-  pages.forEach((page) => {
-    for (let index = startPage + 1; index <= page; index++) {
-      promises.push(
-        getItemFromExplorer(type, gridVersion, network, 500, index)
-      );
-    }
-  });
-
-  const items = await Promise.all(flatten(promises));
-  if (items) {
-  const mappedItems = flatten(
-    items.map((res) => {
-      if (res.data) {
-        return res.data.map((item) => {
-          return {
-            ...item,
-            url: res.config.url,
-          };
-        });
-      } else {
-        log.warn("No response from explorer");
-        return [];
-      }
-    })
-  );
-  return [...itemsPageOne, ...mappedItems];
-  } else {
-    return itemsPageOne;
-  }
 }
 
 // Type can be nodes / farms / gateways
