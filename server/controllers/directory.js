@@ -53,9 +53,9 @@ function getUrls(gridVersion, network) {
 }
 
 function mappingV3Object(gridVersion, nodes) {
-  if (gridVersion === "grid2") return nodes;
   return nodes.map((node) => {
-    if (!node.url.includes("gridproxy")) return node;
+    node.state = getState(node)
+    if (!node.url.includes("gridproxy")) return node
     return {
       id: node.id,
       node_id: node.nodeId,
@@ -64,8 +64,9 @@ function mappingV3Object(gridVersion, nodes) {
       farm_name: "node.farm_name",
       location: node.location,
       status: { status: node.status },
-      total_resources: node.total_resources,
-      used_resources: node.used_resources,
+      state: getState(node),
+      total_resources: resourcesToGigaBytes(node.total_resources),
+      used_resources: resourcesToGigaBytes(node.used_resources),
       reserved_resources: node.used_resources,
       updated: new Date(node.updatedAt).getTime() / 1000,
       uptime: node.uptime,
@@ -87,6 +88,30 @@ function checkFreeToUse(node) {
     tr.hru - us.hru > 0 &&
     tr.sru - us.sru > 0
   );
+}
+
+function resourcesToGigaBytes(resources) {
+  resources.mru = Math.ceil(resources.mru / 1024 ** 3)
+  resources.sru = Math.ceil(resources.sru / 1024 ** 3)
+  resources.hru = Math.ceil(resources.hru / 1024 ** 3)
+  return resources
+}
+
+function getState(node) {
+  const { reserved } = node;
+  if (reserved) return { color: 'green', status: 'up' };
+
+  // Grid3 check
+  const { status } = node;
+  if (status === "up") return { color: 'green', status: 'up' };
+
+  // updated for v2 and updatedAt for v3
+  const timestamp = new Date().getTime() / 1000;
+  const updated = new Date(node.updatedAt).getTime() / 1000 || node.updated
+  const minutes = (timestamp - updated) / 60;
+  if (minutes < 15) return { color: 'green', status: 'up' }
+  else if (minutes > 16 && minutes < 20) return { color: 'orange', status: 'likely down' }
+  else return { color: 'red', status: 'down' }
 }
 
 module.exports = {

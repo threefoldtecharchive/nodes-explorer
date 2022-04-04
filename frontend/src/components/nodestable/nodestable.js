@@ -68,7 +68,7 @@ export default {
           usedResources: node.used_resources,
           workloads: node.workloads,
           updated: new Date(node.updated * 1000),
-          status: this.getStatus(node),
+          status: node.state,
           location: node.location,
           freeToUse: node.free_to_use,
           networkType,
@@ -79,20 +79,8 @@ export default {
     }
   },
   methods: {
-    getStatus (node) {
-      const { updated, reserved } = node
-      if (reserved) return { color: 'green', status: 'up' }
-
-      const startTime = moment()
-      const end = moment.unix(updated)
-      const minutes = startTime.diff(end, 'minutes')
-
-      // if updated difference in minutes with now is less then 10 minutes, node is up
-      if (minutes < 15) return { color: 'green', status: 'up' }
-      else if (minutes > 16 && minutes < 20) { return { color: 'orange', status: 'likely down' } } else return { color: 'red', status: 'down' }
-    },
     showNode (node) {
-      if (!this.showOffline && this.getStatus(node)['status'] === 'down') {
+      if (!this.showOffline && node.state['status'] === 'down') {
         return false
       }
 
