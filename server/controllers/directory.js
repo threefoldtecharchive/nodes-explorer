@@ -65,8 +65,8 @@ function mappingV3Object(gridVersion, nodes) {
       location: node.location,
       status: { status: node.status },
       state: getState(node),
-      total_resources: node.total_resources,
-      used_resources: node.used_resources,
+      total_resources: resourcesToGigaBytes(node.total_resources),
+      used_resources: resourcesToGigaBytes(node.used_resources),
       reserved_resources: node.used_resources,
       updated: new Date(node.updatedAt).getTime() / 1000,
       uptime: node.uptime,
@@ -90,7 +90,14 @@ function checkFreeToUse(node) {
   );
 }
 
-function getState(node){
+function resourcesToGigaBytes(resources) {
+  resources.mru = Math.ceil(resources.mru / 1024 ** 3)
+  resources.sru = Math.ceil(resources.sru / 1024 ** 3)
+  resources.hru = Math.ceil(resources.hru / 1024 ** 3)
+  return resources
+}
+
+function getState(node) {
   const { reserved } = node;
   if (reserved) return { color: 'green', status: 'up' };
 
@@ -103,7 +110,7 @@ function getState(node){
   const updated = new Date(node.updatedAt).getTime() / 1000 || node.updated
   const minutes = (timestamp - updated) / 60;
   if (minutes < 15) return { color: 'green', status: 'up' }
-  else if (minutes > 16 && minutes < 20) return { color: 'orange', status: 'likely down' } 
+  else if (minutes > 16 && minutes < 20) return { color: 'orange', status: 'likely down' }
   else return { color: 'red', status: 'down' }
 }
 
