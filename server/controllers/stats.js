@@ -35,8 +35,10 @@ function online(node) {
   const { status } = node;
   if (status === "up") return true;
 
+  // updated for v2 and updatedAt for v3
   const timestamp = new Date().getTime() / 1000;
-  const minutes = (timestamp - node.updated) / 60;
+  const updated = new Date(node.updatedAt).getTime() / 1000 || node.updated
+  const minutes = (timestamp - updated) / 60;
   return minutes < 20;
 }
 
