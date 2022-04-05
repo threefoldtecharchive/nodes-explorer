@@ -60,7 +60,7 @@ export default {
           node_id: gateway.node_id,
           workloads: gateway.workloads,
           updated: new Date(gateway.updated * 1000),
-          status: this.getStatus(gateway),
+          status: gateway.state,
           location: gateway.location,
           managedDomains: gateway.managed_domains,
           tcpRouterPort: gateway.tcp_router_port,
@@ -74,17 +74,6 @@ export default {
     }
   },
   methods: {
-    getStatus (gateway) {
-      const { updated, reserved } = gateway
-      if (reserved) return { color: 'green', status: 'up' }
-      const startTime = moment()
-      const end = moment.unix(updated)
-      const minutes = startTime.diff(end, 'minutes')
-
-      // if updated difference in minutes with now is less then 10 minutes, gateway is up
-      if (minutes < 15) return { color: 'green', status: 'up' }
-      else if (minutes > 16 && minutes < 20) { return { color: 'orange', status: 'likely down' } } else return { color: 'red', status: 'down' }
-    },
     truncateString (str) {
       // do not truncate in full screen mode
       if (this.othersHidden === true) {
@@ -95,7 +84,7 @@ export default {
       return str.substr(0, 10) + '...'
     },
     showGateway (gateway) {
-      if (!this.showOffline && this.getStatus(gateway)['status'] === 'down') {
+      if (!this.showOffline && gateway.state['status'] === 'down') {
         return false
       }
 
