@@ -37,6 +37,7 @@ function getItemFromExplorer(type, gridVersion, network, size, page) {
           params: {
             size,
             page,
+            ret_count: true
           },
         })
         .then(res)
