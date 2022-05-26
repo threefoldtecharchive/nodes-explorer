@@ -25,9 +25,11 @@ export default {
       return allFarmers
     },
     nodeLocation: function () {
+      // filter only up nodes
+      const upNodes = this.nodes.filter(n => n.state.status === 'up')
       // Group nodes by country
       const groupedNodeLocations = groupBy(
-        this.nodes,
+        upNodes,
         node => node.location.country
       )
 
