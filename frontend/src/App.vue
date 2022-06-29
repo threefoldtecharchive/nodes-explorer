@@ -131,8 +131,7 @@ export default {
       } else if (gridType === 'grid2') {
         this.items = [
           { key: 'all', text: 'All' },
-          { key: 'mainnet', text: 'Mainnet' },
-          { key: 'testnet', text: 'Testnet' }
+          { key: 'mainnet', text: 'Mainnet' }
         ]
       } else {
         this.items = [
